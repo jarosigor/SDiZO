@@ -1,8 +1,7 @@
-#ifndef DYNAMIC_ARRAY_H
-#define DYNAMIC_ARRAY_H
+#ifndef SDIZO_DYNAMIC_ARRAY_H
+#define SDIZO_DYNAMIC_ARRAY_H
 #include <stdio.h>
 #include <iostream>
-#endif
 
 class Dynamic_array {
     private:
@@ -23,3 +22,5 @@ class Dynamic_array {
         auto decrease_capacity() -> void;
         auto print();
 };
+
+#endif

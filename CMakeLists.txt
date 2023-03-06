@@ -7,4 +7,4 @@ include_directories(.)
 
 add_executable(SDiZO
         Dynamic_array.cpp
-        Dynamic_array.h)
+        Dynamic_array.h Doubly_linked_list.h)

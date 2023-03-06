@@ -6,9 +6,10 @@
 
 class Dynamic_array {
     private:
-        int* array;
+        int* array = NULL;
         int capacity;
         int size;
+        int CAP_GROW = 2;
     public:
         Dynamic_array();
         ~Dynamic_array();

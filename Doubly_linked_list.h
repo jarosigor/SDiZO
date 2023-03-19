@@ -1,24 +1,44 @@
 #ifndef SDIZO_DOUBLY_LINKED_LIST_H
 #define SDIZO_DOUBLY_LINKED_LIST_H
 
-class Node {
+struct Node {
+    int value;
+    Node* prev;
+    Node* next;
+
+    Node(int value, Node* prev, Node* next) {
+        this->value = value;
+        this->prev = prev;
+        this->next = next;
+    }
+
+    ~Node(){
+        delete prev;
+        delete next;
+    }
+
+    auto set_prev(Node* node);
+    auto set_next(Node* node);
+};
+
+class DoublyLinkedList {
     private:
-        Node* next = nullptr;
-        Node* previous = nullptr;
-        int value = 0;
+        Node* head;
+        Node* tail;
+        int size;
     public:
-        Node();
-        Node(int value, Node* prev, Node* next);
-        ~Node();
+        DoublyLinkedList();
         auto add_front(int value);
         auto add_back(int value);
-        auto add_at(int value, int position, Node* head);
+        auto add_at(int value, int position);
         auto remove_front();
         auto remove_back();
-        auto remove_at(int position, Node* head);
-        auto find(int position, Node* head);
-        auto set_prev(Node* node);
-        auto set_next(Node* node);
+        auto remove_at(int position);
+        auto find(int position);
+
+        auto get_prev();
+        auto get_next();
+        auto print();
 };
 
 #endif //SDIZO_DOUBLY_LINKED_LIST_H

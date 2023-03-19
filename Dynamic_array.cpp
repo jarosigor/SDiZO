@@ -120,38 +120,38 @@ auto Dynamic_array::print() {
     std::cout << std::endl;
 }
 
-int main() {
-
-    Dynamic_array da;
-    std::cout << "Dodawanie na poczatek:" << std::endl;
-    for (int i = 0; i < 32; i++) {
-        da.add_front(i);
-        da.print();
-    }
-
-    std::cout << "Dodawanie na pozycje:" << std::endl;
-    da.add_at(124, 5);
-    da.print();
-
-    std::cout << "Usuwanie z pozycji:" << std::endl;
-    da.remove_at(5);
-    da.print();
-
-    std::cout << "Dodawanie na koniec:" << std::endl;
-    for (int i = 0; i < 32; i++) {
-        da.add_back(i);
-        da.print();
-    }
-    std::cout << "Usuwanie z konca:" << std::endl;
-    for (int i = 0; i < 32; i++) {
-        da.remove_back();
-        da.print();
-    }
-    std::cout << "Usuwanie z poczatku:" << std::endl;
-    for (int i = 0; i < 32; i++) {
-        da.remove_front();
-        da.print();
-    }
-
-    return 0;
-}
+//int main() {
+//
+//    Dynamic_array da;
+//    std::cout << "Dodawanie na poczatek:" << std::endl;
+//    for (int i = 0; i < 32; i++) {
+//        da.add_front(i);
+//        da.print();
+//    }
+//
+//    std::cout << "Dodawanie na pozycje:" << std::endl;
+//    da.add_at(124, 5);
+//    da.print();
+//
+//    std::cout << "Usuwanie z pozycji:" << std::endl;
+//    da.remove_at(5);
+//    da.print();
+//
+//    std::cout << "Dodawanie na koniec:" << std::endl;
+//    for (int i = 0; i < 32; i++) {
+//        da.add_back(i);
+//        da.print();
+//    }
+//    std::cout << "Usuwanie z konca:" << std::endl;
+//    for (int i = 0; i < 32; i++) {
+//        da.remove_back();
+//        da.print();
+//    }
+//    std::cout << "Usuwanie z poczatku:" << std::endl;
+//    for (int i = 0; i < 32; i++) {
+//        da.remove_front();
+//        da.print();
+//    }
+//
+//    return 0;
+//}

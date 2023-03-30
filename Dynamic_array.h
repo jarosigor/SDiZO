@@ -1,7 +1,10 @@
+#ifndef STD_LIB
+#define STD_LIB
+#include <iostream>
+#endif
+
 #ifndef SDIZO_DYNAMIC_ARRAY_H
 #define SDIZO_DYNAMIC_ARRAY_H
-#include <stdio.h>
-#include <iostream>
 
 class Dynamic_array {
     private:

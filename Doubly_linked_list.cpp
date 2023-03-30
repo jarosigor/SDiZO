@@ -1,14 +1,6 @@
 #include <iostream>
 #include "Doubly_linked_list.h"
 
-auto Node::set_prev(Node *node) {
-    prev = node;
-}
-
-auto Node::set_next(Node *node) {
-    next = node;
-}
-
 DoublyLinkedList::DoublyLinkedList() {
     size = 0;
     head = nullptr;
@@ -60,6 +52,7 @@ auto DoublyLinkedList::add_at(int value, int position) {
     Node* new_node = new Node(value, curr_node->prev, curr_node);
     (curr_node->prev)->next = new_node;
     curr_node->prev = new_node;
+    return 1;
 }
 
 auto DoublyLinkedList::remove_front() {
@@ -140,43 +133,43 @@ auto DoublyLinkedList::print() {
     std::cout << std::endl;
 }
 
-using namespace std;
-int main() {
-    int check_success = 0;
-    DoublyLinkedList list;
-
-    cout << "Added elem to front" << endl;
-    check_success = list.add_front(12);
-    list.print();
-
-    cout << "Added elem to back" << endl;
-    check_success = list.add_back(69);
-    list.print();
-
-    cout << "Added elem to front" << endl;
-    check_success = list.add_front(9);
-    list.print();
-
-    cout << "Added elem to front" << endl;
-    check_success = list.add_front(321);
-    list.print();
-
-    cout << "Removed elem at 2 position" << endl;
-    check_success = list.remove_at(2);
-    list.print();
-
-    cout << "Added elem at 1 position" << endl;
-    check_success = list.add_at(83, 1);
-    list.print();
-
-    cout << "Removed back elem" << endl;
-    check_success = list.remove_back();
-    list.print();
-
-    cout << "Removed front elem" << endl;
-    check_success = list.remove_front();
-    list.print();
-
-    return 0;
-}
+//using namespace std;
+//int main() {
+//    int check_success = 0;
+//    DoublyLinkedList list;
+//
+//    cout << "Added elem to front" << endl;
+//    check_success = list.add_front(12);
+//    list.print();
+//
+//    cout << "Added elem to back" << endl;
+//    check_success = list.add_back(69);
+//    list.print();
+//
+//    cout << "Added elem to front" << endl;
+//    check_success = list.add_front(9);
+//    list.print();
+//
+//    cout << "Added elem to front" << endl;
+//    check_success = list.add_front(321);
+//    list.print();
+//
+//    cout << "Removed elem at 2 position" << endl;
+//    check_success = list.remove_at(2);
+//    list.print();
+//
+//    cout << "Added elem at 1 position" << endl;
+//    check_success = list.add_at(83, 1);
+//    list.print();
+//
+//    cout << "Removed back elem" << endl;
+//    check_success = list.remove_back();
+//    list.print();
+//
+//    cout << "Removed front elem" << endl;
+//    check_success = list.remove_front();
+//    list.print();
+//
+//    return 0;
+//}
 

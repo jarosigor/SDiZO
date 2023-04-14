@@ -79,7 +79,7 @@ auto BST::succ_BST(TreeNode *node) {
 
 auto BST::find_BST(int key) {
     TreeNode* curr_node = root;
-    while (curr_node->value != key && curr_node != nullptr) {
+    while (curr_node->value != key) {
         if (curr_node->value < key) {
             curr_node = curr_node->left_child;
         } else {
@@ -102,7 +102,7 @@ auto BST::add(int value) {
         }
     }
 
-    TreeNode* new_node = new TreeNode(value, parent, nullptr, nullptr);
+    auto new_node = new TreeNode(value, parent, nullptr, nullptr);
     // puste drzewo
     if (parent == nullptr) {
         root = new_node;
@@ -154,6 +154,7 @@ auto BST::remove(int value) {
         successor->left_child->parent = successor;
         delete rem_node;
     }
+    return 0;
 }
 
 void BST::print(TreeNode* curr_node) {
@@ -164,10 +165,6 @@ void BST::print(TreeNode* curr_node) {
     if (curr_node->right_child != nullptr) {
         print(curr_node->right_child);
     }
-}
-
-auto BST::balance_tree(TreeNode *node) {
-
 }
 
 auto BST::rotate_left(TreeNode* node) {
@@ -208,21 +205,82 @@ auto BST::rotate_right(TreeNode* node) {
     node->parent = node_l_kid;
 }
 
+auto BST::make_bst_vine() {
+    int n = 0;
+    TreeNode* curr_node = root;
+    while (curr_node != nullptr) {
+        if (curr_node->left_child == nullptr) {
+            n++;
+            curr_node = curr_node->right_child;
+        } else {
+            rotate_right(curr_node);
+            curr_node = curr_node->parent;
+        }
+    }
+    return n;
+}
+
+auto BST::balance_tree_DSW() {
+    int n = make_bst_vine();
+    int n_of_leafs = n + 1 - int(log2(n + 1));
+    TreeNode* curr_node;
+    bool first_part = true;
+
+    while (n > 1 || first_part) {
+        curr_node = root;
+        int cycles;
+        if (first_part) {
+            cycles = n_of_leafs;
+            n -= n_of_leafs;
+            first_part = false;
+        } else {
+            n /= 2;
+            cycles = n;
+        }
+        for (int i = 0; i < cycles && curr_node != nullptr; i++) {
+            rotate_left(curr_node);
+            curr_node = curr_node->parent->right_child;
+        }
+    }
+}
+
+// inspiration from SO
+void printBST(TreeNode* node, bool isLeft = false, const std::string& prefix = "") {
+    if (node != nullptr) {
+        std::cout << prefix;
+        if (node->parent != nullptr) {
+            std::cout << (isLeft ? "L" : "R");
+        }
+        std::cout << (isLeft ? "├──" : "└──");
+
+        // wypisujemy wartosc
+        std::cout << node->value << std::endl;
+
+        printBST(node->left_child, true, prefix + (isLeft ? " │  " : "    "));
+        printBST(node->right_child, false,  prefix + (isLeft ? " │  " : "    "));
+    }
+}
+
 auto BST::get_root() {
     return root;
 }
 
 int main() {
-
-    TreeNode* root = new TreeNode(12, nullptr, nullptr, nullptr);
+    auto root = new TreeNode(114, nullptr, nullptr, nullptr);
     BST bst = BST(root);
 
-    bst.add(3);
-    bst.add(51);
-    bst.add(1);
-    bst.print(root);
-    std::cout << std::endl;
-    bst.rotate_right(root);
-    bst.print(bst.get_root());
+    bst.add(90);
+    bst.add(46);
+    bst.add(32);
+    bst.add(12);
+    bst.add(24);
+    bst.add(89);
+    bst.add(11);
+
+    std::cout << "Unbalanced" << std::endl;
+    printBST(bst.get_root());
+    bst.balance_tree_DSW();
+    std::cout << "Balanced" << std::endl;
+    printBST(bst.get_root());
 }
 

@@ -2,6 +2,7 @@
 #define STD_LIB
 #include <iostream>
 #include <bits/stdc++.h>
+#include <math.h>
 #endif
 
 #ifndef SDIZO_BST_H
@@ -40,7 +41,8 @@ public:
     auto rotate_right(TreeNode* node);
     auto rotate_left(TreeNode* node);
     auto succ_BST(TreeNode* node);
-    auto balance_tree(TreeNode* node);
+    auto make_bst_vine();
+    auto balance_tree_DSW();
     void print(TreeNode* curr_node);
     auto get_root();
 };

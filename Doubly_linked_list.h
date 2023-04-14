@@ -1,6 +1,7 @@
 #ifndef STD_LIB
 #define STD_LIB
 #include <iostream>
+#include <bits/stdc++.h>
 #endif
 
 #ifndef SDIZO_DOUBLY_LINKED_LIST_H

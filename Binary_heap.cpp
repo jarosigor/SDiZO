@@ -99,18 +99,19 @@ auto BinaryHeap::print() {
     std::cout << std::endl;
 }
 
-int main() {
-    BinaryHeap binaryHeap = BinaryHeap(10);
-    binaryHeap.add(4);
-    binaryHeap.add(2);
-    binaryHeap.add(49);
-    binaryHeap.add(1);
-    binaryHeap.add(169);
-    binaryHeap.print();
-    binaryHeap.remove_top();
-    binaryHeap.print();
-    return 0;
-}
+//
+//int main() {
+//    BinaryHeap binaryHeap = BinaryHeap(10);
+//    binaryHeap.add(4);
+//    binaryHeap.add(2);
+//    binaryHeap.add(49);
+//    binaryHeap.add(1);
+//    binaryHeap.add(169);
+//    binaryHeap.print();
+//    binaryHeap.remove_top();
+//    binaryHeap.print();
+//    return 0;
+//}
 
 
 

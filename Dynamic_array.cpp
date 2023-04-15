@@ -10,7 +10,7 @@ Dynamic_array::~Dynamic_array() {
     delete[] array;
 }
 
-auto Dynamic_array::add_at(int value, int position) -> bool {
+bool Dynamic_array::add_at(int value, int position) {
     //sprawdzam czy podana przez uzytkownika pozycja znajduje sie w zakresie tablicy
     if (position < 0 || position > size) {
         std::cerr << "Podana pozycja znajduje sie poza zakresem tablicy [0-" << size << "]"; 
@@ -28,7 +28,7 @@ auto Dynamic_array::add_at(int value, int position) -> bool {
     return true;
 }
 
-auto Dynamic_array::add_front(int value) -> bool {
+bool Dynamic_array::add_front(int value) {
     // sprawdzam czy ilosc zaalokowanej pamieci wystarczy jak nie zwiekszam ja
     increase_capacity();
     //std::cout << sizeof(array) / sizeof(int) << std::endl;
@@ -42,7 +42,7 @@ auto Dynamic_array::add_front(int value) -> bool {
     return true;
 }
 
-auto Dynamic_array::add_back(int value) -> bool {
+bool Dynamic_array::add_back(int value) {
     // to samo co wyzej
     increase_capacity();
     // dodaje nowa wartosc na koniec tablicy
@@ -51,7 +51,7 @@ auto Dynamic_array::add_back(int value) -> bool {
     return true;
 }
 
-auto Dynamic_array::remove_front() -> bool {
+bool Dynamic_array::remove_front() {
     // przesuwamy elementy w lewo usuwajac/nadpisujac wartosc na poczatku 
     for (int i = 0; i < size - 1; i++) {
         array[i] = array[i + 1];
@@ -62,14 +62,14 @@ auto Dynamic_array::remove_front() -> bool {
     return true;
 }
 
-auto Dynamic_array::remove_back() -> bool {
+bool Dynamic_array::remove_back() {
     array[size - 1] = 0;
     size--;
     decrease_capacity();
     return true;
 }
 
-auto Dynamic_array::remove_at(int position) -> bool {
+bool Dynamic_array::remove_at(int position) {
     if (position < 0 || position > size) {
         std::cerr << "Podana pozycja znajduje sie poza zakresem tablicy [0-" << size << "]";
         return false;
@@ -88,7 +88,7 @@ auto Dynamic_array::remove_at(int position) -> bool {
 }
 
 // funkcja zwiekszajaca zaalokowana pamiec
-auto Dynamic_array::increase_capacity() -> void {
+void Dynamic_array::increase_capacity() {
     if (capacity == size) {
         int* new_array = new int[capacity * CAP_GROW];
         for (int i = 0; i < capacity; i++) {
@@ -101,7 +101,7 @@ auto Dynamic_array::increase_capacity() -> void {
 }
 
 // funkcja zmniejszajaca zaalokowana pamiec
-auto Dynamic_array::decrease_capacity() -> void {
+void Dynamic_array::decrease_capacity() {
     if (size <= capacity / CAP_GROW) {
         capacity = size;
         int* new_array = new int[capacity];
@@ -113,7 +113,7 @@ auto Dynamic_array::decrease_capacity() -> void {
     }
 }
 
-auto Dynamic_array::print() {
+void Dynamic_array::print() {
     for (int i = 0; i < capacity; i++) {
         std::cout << array[i] << " ";
     }

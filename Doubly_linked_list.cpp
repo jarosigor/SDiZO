@@ -7,7 +7,7 @@ DoublyLinkedList::DoublyLinkedList() {
     tail = nullptr;
 }
 
-auto DoublyLinkedList::add_front(int value) {
+int DoublyLinkedList::add_front(int value) {
     Node* new_node = new Node(value, nullptr, head);
     if (size == 0) {
         head = new_node;
@@ -18,10 +18,10 @@ auto DoublyLinkedList::add_front(int value) {
         head = new_node;
     }
     size++;
-    return 1;
+    return 0;
 }
 
-auto DoublyLinkedList::add_back(int value) {
+int DoublyLinkedList::add_back(int value) {
     Node* new_node = new Node(value, tail, nullptr);
     if (size == 0) {
         tail = new_node;
@@ -31,13 +31,13 @@ auto DoublyLinkedList::add_back(int value) {
         tail = new_node;
     }
     size++;
-    return 1;
+    return 0;
 }
 
-auto DoublyLinkedList::add_at(int value, int position) {
+int DoublyLinkedList::add_at(int value, int position) {
     if (position  < 0 || position > size) {
         std::cerr << "Position is not valid!";
-        return 0;
+        return -1;
     }
     if (position == 0) return add_front(value);
     if (position == size) return add_back(value);
@@ -52,41 +52,41 @@ auto DoublyLinkedList::add_at(int value, int position) {
     Node* new_node = new Node(value, curr_node->prev, curr_node);
     (curr_node->prev)->next = new_node;
     curr_node->prev = new_node;
-    return 1;
+    return 0;
 }
 
-auto DoublyLinkedList::remove_front() {
+int DoublyLinkedList::remove_front() {
     if (size != 0) {
         Node* new_head = head->next;
         new_head->prev = nullptr;
         head = new_head;
         size--;
-        return 1;
+        return 0;
     }
     else {
         std::cout << "List is empty!";
-        return 0;
+        return -1;
     }
 }
 
-auto DoublyLinkedList::remove_back() {
+int DoublyLinkedList::remove_back() {
     if (size != 0) {
         Node* new_tail = tail->prev;
         new_tail->next = nullptr;
         tail = new_tail;
         size--;
-        return 1;
+        return 0;
     }
     else {
         std::cout << "List is empty!";
-        return 0;
+        return -1;
     }
 }
 
-auto DoublyLinkedList::remove_at(int position) {
+int DoublyLinkedList::remove_at(int position) {
     if (position  < 0 || position >= size) {
         std::cerr << "Position is not valid!";
-        return 0;
+        return -1;
     }
 
     Node* curr_node = head;
@@ -99,10 +99,10 @@ auto DoublyLinkedList::remove_at(int position) {
     curr_node->prev->next = curr_node->next;
     size--;
 
-    return 1;
+    return 0;
 }
 
-auto DoublyLinkedList::find(int position) {
+Node* DoublyLinkedList::find(int position) {
     Node* curr_node = nullptr;
     if (position  < 0 || position >= size) {
         std::cerr << "Position is not valid!";
@@ -119,10 +119,9 @@ auto DoublyLinkedList::find(int position) {
     return curr_node;
 }
 
-auto DoublyLinkedList::print() {
+void DoublyLinkedList::print() {
     if (size == 0) {
         std::cout << "List is empty!";
-        return;
     }
     //std::cout << "head " << this->head->value << " tail " << this->tail->value << std::endl;
     Node* curr_node = head;

@@ -1,7 +1,7 @@
 #ifndef STD_LIB
 #define STD_LIB
 #include <iostream>
-#include <bits/stdc++.h>
+#include <cmath>
 #endif
 
 #ifndef SDIZO_DOUBLY_LINKED_LIST_H
@@ -31,14 +31,14 @@ private:
     int size;
 public:
     DoublyLinkedList();
-    auto add_front(int value);
-    auto add_back(int value);
-    auto add_at(int value, int position);
-    auto remove_front();
-    auto remove_back();
-    auto remove_at(int position);
-    auto find(int position);
-    auto print();
+    int add_front(int value);
+    int add_back(int value);
+    int add_at(int value, int position);
+    int remove_front();
+    int remove_back();
+    int remove_at(int position);
+    Node* find(int position);
+    void print();
 };
 
 #endif //SDIZO_DOUBLY_LINKED_LIST_H

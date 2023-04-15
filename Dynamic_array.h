@@ -1,6 +1,7 @@
 #ifndef STD_LIB
 #define STD_LIB
 #include <iostream>
+#include <cmath>
 #endif
 
 #ifndef SDIZO_DYNAMIC_ARRAY_H
@@ -15,15 +16,15 @@ class Dynamic_array {
     public:
         Dynamic_array();
         ~Dynamic_array();
-        auto add_front(int value) -> bool;
-        auto add_back(int value) -> bool;
-        auto add_at(int value, int position) -> bool;
-        auto remove_front() -> bool;
-        auto remove_back() -> bool;
-        auto remove_at(int position) -> bool;
-        auto increase_capacity() -> void;
-        auto decrease_capacity() -> void;
-        auto print();
+        bool add_front(int value);
+        bool add_back(int value);
+        bool add_at(int value, int position);
+        bool remove_front();
+        bool remove_back();
+        bool remove_at(int position);
+        void increase_capacity();
+        void decrease_capacity();
+        void print();
 };
 
 #endif

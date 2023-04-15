@@ -32,23 +32,6 @@ auto TreeNode::is_right_child() {
     return parent->right_child == this;
 }
 
-auto TreeNode::print() {
-    std::cout << value << " ";
-    if (parent == nullptr)
-        std::cout << " root ";
-    else if (is_leaf()) {
-        std::cout << " leaf ";
-    }
-    if (left_child != nullptr) {
-        std::cout << " left child " << left_child->value;
-    }
-    if (right_child != nullptr) {
-        std::cout << " right child " << right_child->value;
-    }
-
-    std::cout << std::endl;
-}
-
 BST::BST() {
     root = nullptr;
 }
@@ -57,11 +40,8 @@ BST::BST(TreeNode *root) {
     this->root = root;
 }
 
-auto BST::is_empty() {
-    return root == nullptr;
-}
-
-auto BST::succ_BST(TreeNode *node) {
+// wyszukiwanie nastepnika dla podanego wezla
+TreeNode* BST::succ_BST(TreeNode *node) {
     TreeNode* successor = node->right_child;
     if (successor != nullptr) {
         while (successor->left_child != nullptr) {
@@ -77,7 +57,8 @@ auto BST::succ_BST(TreeNode *node) {
     return successor;
 }
 
-auto BST::find_BST(int key) {
+// wyszukiwanie wezla po kluczu
+TreeNode* BST::find_BST(int key) {
     TreeNode* curr_node = root;
     while (curr_node->value != key) {
         if (curr_node->value < key) {
@@ -89,7 +70,7 @@ auto BST::find_BST(int key) {
     return curr_node->value == key ? curr_node : nullptr;
 }
 
-auto BST::add(int value) {
+int BST::add(int value) {
     TreeNode* curr_node = root;
     TreeNode* parent = nullptr;
     // wyszukujemy liścia/parenta nowego noda
@@ -111,11 +92,11 @@ auto BST::add(int value) {
     } else {
         parent->right_child = new_node;
     }
-
+    return 0;
 }
 
 // funkcja przeszczepia poddrzewo v w miejsce wezla u
-auto BST::transplant(TreeNode* u, TreeNode* v) {
+void BST::transplant(TreeNode* u, TreeNode* v) {
     if (u->parent == nullptr) {
         root = v;
     } else if (u->is_left_child()) {
@@ -128,8 +109,8 @@ auto BST::transplant(TreeNode* u, TreeNode* v) {
     }
 }
 
-auto BST::remove(int value) {
-    TreeNode* rem_node = find_BST(value);
+int BST::remove(int value) {
+    auto rem_node = find_BST(value);
 
     if (rem_node == nullptr) {
         std::cerr << "!!!Given node value does not appear in BST!!!";
@@ -157,17 +138,7 @@ auto BST::remove(int value) {
     return 0;
 }
 
-void BST::print(TreeNode* curr_node) {
-    curr_node->print();
-    if (curr_node->left_child != nullptr) {
-        print(curr_node->left_child);
-    }
-    if (curr_node->right_child != nullptr) {
-        print(curr_node->right_child);
-    }
-}
-
-auto BST::rotate_left(TreeNode* node) {
+void BST::rotate_left(TreeNode* node) {
     TreeNode* node_r_kid = node->right_child;
     // lewe poddrzewo prawego dziecka zmieniamy w prawe
     node->right_child = node_r_kid->left_child;
@@ -186,7 +157,7 @@ auto BST::rotate_left(TreeNode* node) {
     node->parent = node_r_kid;
 }
 
-auto BST::rotate_right(TreeNode* node) {
+void BST::rotate_right(TreeNode* node) {
     TreeNode* node_l_kid = node->left_child;
     // lewe poddrzewo prawego dziecka zmieniamy w prawe
     node->left_child = node_l_kid->right_child;
@@ -205,9 +176,10 @@ auto BST::rotate_right(TreeNode* node) {
     node->parent = node_l_kid;
 }
 
-auto BST::make_bst_vine() {
+// funkcja przeksztalcajaca niezbalansowane drzewo do postaci winoroslii
+int BST::make_bst_vine() {
     int n = 0;
-    TreeNode* curr_node = root;
+    auto curr_node = root;
     while (curr_node != nullptr) {
         if (curr_node->left_child == nullptr) {
             n++;
@@ -220,12 +192,14 @@ auto BST::make_bst_vine() {
     return n;
 }
 
-auto BST::balance_tree_DSW() {
+// balansowanie drzewa wykorzystujac algorytm DSW
+void BST::balance_tree_DSW() {
     int n = make_bst_vine();
     int n_of_leafs = n + 1 - int(log2(n + 1));
     TreeNode* curr_node;
     bool first_part = true;
 
+    // rotacje w zaleznosci od fazy 1 lub 2
     while (n > 1 || first_part) {
         curr_node = root;
         int cycles;
@@ -244,43 +218,39 @@ auto BST::balance_tree_DSW() {
     }
 }
 
-// inspiration from SO
-void printBST(TreeNode* node, bool isLeft = false, const std::string& prefix = "") {
+// inspiracja z SO
+void BST::print_BST(TreeNode* node, bool isLeft, const std::string& prefix) {
     if (node != nullptr) {
         std::cout << prefix;
-        if (node->parent != nullptr) {
-            std::cout << (isLeft ? "L" : "R");
-        }
-        std::cout << (isLeft ? "├──" : "└──");
-
-        // wypisujemy wartosc
+        std::cout << (isLeft && node->parent != nullptr ? "L" : "R");
+        std::cout << "|--";
         std::cout << node->value << std::endl;
 
-        printBST(node->left_child, true, prefix + (isLeft ? " │  " : "    "));
-        printBST(node->right_child, false,  prefix + (isLeft ? " │  " : "    "));
+        print_BST(node->left_child, true, prefix + (isLeft ? " :  " : "    "));
+        print_BST(node->right_child, false,  prefix + (isLeft ? " :  " : "    "));
     }
 }
 
-auto BST::get_root() {
+TreeNode* BST::get_root() {
     return root;
 }
-
-int main() {
-    auto root = new TreeNode(114, nullptr, nullptr, nullptr);
-    BST bst = BST(root);
-
-    bst.add(90);
-    bst.add(46);
-    bst.add(32);
-    bst.add(12);
-    bst.add(24);
-    bst.add(89);
-    bst.add(11);
-
-    std::cout << "Unbalanced" << std::endl;
-    printBST(bst.get_root());
-    bst.balance_tree_DSW();
-    std::cout << "Balanced" << std::endl;
-    printBST(bst.get_root());
-}
+//
+//int main() {
+//    auto root = new TreeNode(114, nullptr, nullptr, nullptr);
+//    BST bst = BST(root);
+//
+//    bst.add(90);
+//    bst.add(46);
+//    bst.add(32);
+//    bst.add(12);
+//    bst.add(24);
+//    bst.add(89);
+//    bst.add(11);
+//
+//    std::cout << "Unbalanced" << std::endl;
+//    print_BST(bst.get_root());
+//    bst.balance_tree_DSW();
+//    std::cout << "Balanced" << std::endl;
+//    print_BST(bst.get_root());
+//}
 

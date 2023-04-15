@@ -12,22 +12,23 @@ BinaryHeap::BinaryHeap(int capacity) {
     heap = new int[capacity];
 }
 
-// -1 as a result means our node is a root
-auto BinaryHeap::get_parent(int index) {
+// -1 oznacza ze nasz wezel jest korzeniem
+int BinaryHeap::get_parent(int index) {
     return (index-1)/2 < heap_size ? (index-1)/2 : -1;
 }
 
-// -1 as a result means our node is a leaf
-auto BinaryHeap::get_left_child(int index) {
+// -1 oznacza lisc
+int BinaryHeap::get_left_child(int index) {
     return (index*2)+1 < heap_size ? index*2+1 : -1;
 
 }
-// -1 as a result means our node is a leaf
-auto BinaryHeap::get_right_child(int index) {
+// -1 oznacza lisc
+int BinaryHeap::get_right_child(int index) {
     return (index*2)+2 < heap_size ? index*2+2 : -1;
 }
 
-auto BinaryHeap::heapify_up(int index) {
+// przywracanie wlasnosci kopca w gore kopca od danego indeksu
+void BinaryHeap::heapify_up(int index) {
     while (index != 0) {
         int parent = get_parent(index);
         if (heap[index] > heap[parent]) {
@@ -38,7 +39,8 @@ auto BinaryHeap::heapify_up(int index) {
     }
 }
 
-auto BinaryHeap::heapify_down(int index) {
+// przywracanie wlasnosci kopca w dol od danego indeksu
+void BinaryHeap::heapify_down(int index) {
     while (index != -1) {
         int left_child = get_left_child(index);
         int right_child = get_right_child(index);
@@ -52,7 +54,7 @@ auto BinaryHeap::heapify_down(int index) {
     }
 }
 
-auto BinaryHeap::add(int value) {
+void BinaryHeap::add(int value) {
     if (heap_size == capacity) {
         std::cerr << "!!!No more space available!!!";
     }
@@ -64,19 +66,19 @@ auto BinaryHeap::add(int value) {
     heapify_up(i);
 }
 
-auto BinaryHeap::remove_top() {
+bool BinaryHeap::remove_top() {
     if (heap_size == 0) {
         std::cerr << "!!!Heap is already empty!!!";
         return false;
     }
     heap_size--;
     heap[0] = heap[heap_size];
-    heap[heap_size] = NULL;
+    heap[heap_size] = 0;
     heapify_down(0);
     return true;
 }
 
-auto BinaryHeap::print() {
+void BinaryHeap::print() {
     int num_levels = floor(log2(heap_size)) + 1;
     int curr_lvl = 0;
     int curr_idx = 0;

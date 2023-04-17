@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(SDiZO
-        Dynamic_array.cpp
-        Doubly_linked_list.cpp
-        Binary_heap.cpp
+        DynamicArray.cpp
+        DoublyLinkedList.cpp
+        BinaryHeap.cpp
         BST.cpp
         Main.cpp)

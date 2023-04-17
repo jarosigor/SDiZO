@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Doubly_linked_list.h"
+#include "DoublyLinkedList.h"
 
 DoublyLinkedList::DoublyLinkedList() {
     size = 0;
@@ -130,6 +130,10 @@ void DoublyLinkedList::print() {
         curr_node = curr_node->next;
     }
     std::cout << std::endl;
+}
+
+int DoublyLinkedList::get_size() {
+    return size;
 }
 
 //using namespace std;

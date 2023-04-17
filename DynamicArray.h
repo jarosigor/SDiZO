@@ -7,15 +7,15 @@
 #ifndef SDIZO_DYNAMIC_ARRAY_H
 #define SDIZO_DYNAMIC_ARRAY_H
 
-class Dynamic_array {
+class DynamicArray {
     private:
         int* array = NULL;
         int capacity;
         int size;
         int CAP_GROW = 2;
     public:
-        Dynamic_array();
-        ~Dynamic_array();
+        DynamicArray();
+        ~DynamicArray();
         bool add_front(int value);
         bool add_back(int value);
         bool add_at(int value, int position);
@@ -25,6 +25,7 @@ class Dynamic_array {
         void increase_capacity();
         void decrease_capacity();
         void print();
+        int get_size();
 };
 
 #endif

@@ -10,5 +10,9 @@
 #include <iomanip>
 #include <fstream>
 #include <random>
+#include "DynamicArray.h"
+#include "DoublyLinkedList.h"
+#include "BinaryHeap.h"
+#include "BST.h"
 
 #endif //SDIZO_MAIN_H

@@ -1,16 +1,16 @@
-#include "Dynamic_array.h"
+#include "DynamicArray.h"
 
-Dynamic_array::Dynamic_array() {
+DynamicArray::DynamicArray() {
     capacity = 1;
     array = new int[capacity];
     size = 0;
 }
 
-Dynamic_array::~Dynamic_array() {
+DynamicArray::~DynamicArray() {
     delete[] array;
 }
 
-bool Dynamic_array::add_at(int value, int position) {
+bool DynamicArray::add_at(int value, int position) {
     //sprawdzam czy podana przez uzytkownika pozycja znajduje sie w zakresie tablicy
     if (position < 0 || position > size) {
         std::cerr << "Podana pozycja znajduje sie poza zakresem tablicy [0-" << size << "]"; 
@@ -28,7 +28,7 @@ bool Dynamic_array::add_at(int value, int position) {
     return true;
 }
 
-bool Dynamic_array::add_front(int value) {
+bool DynamicArray::add_front(int value) {
     // sprawdzam czy ilosc zaalokowanej pamieci wystarczy jak nie zwiekszam ja
     increase_capacity();
     //std::cout << sizeof(array) / sizeof(int) << std::endl;
@@ -42,7 +42,7 @@ bool Dynamic_array::add_front(int value) {
     return true;
 }
 
-bool Dynamic_array::add_back(int value) {
+bool DynamicArray::add_back(int value) {
     // to samo co wyzej
     increase_capacity();
     // dodaje nowa wartosc na koniec tablicy
@@ -51,7 +51,7 @@ bool Dynamic_array::add_back(int value) {
     return true;
 }
 
-bool Dynamic_array::remove_front() {
+bool DynamicArray::remove_front() {
     // przesuwamy elementy w lewo usuwajac/nadpisujac wartosc na poczatku 
     for (int i = 0; i < size - 1; i++) {
         array[i] = array[i + 1];
@@ -62,14 +62,14 @@ bool Dynamic_array::remove_front() {
     return true;
 }
 
-bool Dynamic_array::remove_back() {
+bool DynamicArray::remove_back() {
     array[size - 1] = 0;
     size--;
     decrease_capacity();
     return true;
 }
 
-bool Dynamic_array::remove_at(int position) {
+bool DynamicArray::remove_at(int position) {
     if (position < 0 || position > size) {
         std::cerr << "Podana pozycja znajduje sie poza zakresem tablicy [0-" << size << "]";
         return false;
@@ -88,32 +88,34 @@ bool Dynamic_array::remove_at(int position) {
 }
 
 // funkcja zwiekszajaca zaalokowana pamiec
-void Dynamic_array::increase_capacity() {
+void DynamicArray::increase_capacity() {
     if (capacity == size) {
         int* new_array = new int[capacity * CAP_GROW];
         for (int i = 0; i < capacity; i++) {
             new_array[i] = array[i];
         }
         capacity *= CAP_GROW;
-        delete[] array;
         array = new_array;
     }
 }
 
 // funkcja zmniejszajaca zaalokowana pamiec
-void Dynamic_array::decrease_capacity() {
+void DynamicArray::decrease_capacity() {
     if (size <= capacity / CAP_GROW) {
         capacity = size;
         int* new_array = new int[capacity];
         for (int i = 0; i < size; i++) {
             new_array[i] = array[i];
         }
-        delete[] array;
         array = new_array;
     }
 }
 
-void Dynamic_array::print() {
+int DynamicArray::get_size() {
+    return size;
+}
+
+void DynamicArray::print() {
     for (int i = 0; i < capacity; i++) {
         std::cout << array[i] << " ";
     }
@@ -122,7 +124,7 @@ void Dynamic_array::print() {
 
 //int main() {
 //
-//    Dynamic_array da;
+//    DynamicArray da;
 //    std::cout << "Dodawanie na poczatek:" << std::endl;
 //    for (int i = 0; i < 32; i++) {
 //        da.add_front(i);

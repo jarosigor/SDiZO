@@ -39,6 +39,7 @@ public:
     int remove_at(int position);
     Node* find(int position);
     void print();
+    int get_size();
 };
 
 #endif //SDIZO_DOUBLY_LINKED_LIST_H

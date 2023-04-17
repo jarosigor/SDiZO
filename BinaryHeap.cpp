@@ -1,4 +1,4 @@
-#include "Binary_heap.h"
+#include "BinaryHeap.h"
 
 BinaryHeap::BinaryHeap() {
     capacity = 1;

@@ -6,14 +6,18 @@
 
 #ifndef SDIZO_BST_H
 #define SDIZO_BST_H
+#include <utility>
 
 
-struct TreeNode {
+class TreeNode {
+public:
     int value;
     TreeNode *left_child;
     TreeNode *right_child;
     TreeNode *parent;
     TreeNode();
+    TreeNode(const TreeNode& other);
+    TreeNode& operator=(const TreeNode& other);
     TreeNode(int value, TreeNode *parent, TreeNode *left_child, TreeNode *right_child);
     ~TreeNode();
     auto is_leaf();
@@ -29,6 +33,8 @@ private:
 public:
     BST();
     BST(TreeNode* root);
+    BST(const BST& other);
+    BST& operator=(const BST& other);
     void transplant(TreeNode* u, TreeNode* v);
     TreeNode* find_BST(int key);
     int add(int value);

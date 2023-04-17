@@ -15,6 +15,7 @@ class DynamicArray {
         int CAP_GROW = 2;
     public:
         DynamicArray();
+        DynamicArray(int arr_size);
         ~DynamicArray();
         bool add_front(int value);
         bool add_back(int value);

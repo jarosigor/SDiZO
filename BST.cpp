@@ -70,7 +70,7 @@ TreeNode* BST::succ_BST(TreeNode *node) {
         }
     } else {
         successor = node->parent;
-        while (successor != nullptr && successor->is_right_child()) {
+        while (successor != nullptr && node->is_right_child()) {
             node = successor;
             successor = successor->parent;
         }
@@ -159,12 +159,14 @@ int BST::remove(int value) {
         transplant(rem_node, successor);
         successor->left_child = rem_node->left_child;
         successor->left_child->parent = successor;
-        delete rem_node;
     }
     return 0;
 }
 
 void BST::rotate_left(TreeNode* node) {
+    if (node->right_child == nullptr) {
+        return;
+    }
     TreeNode* node_r_kid = node->right_child;
     // lewe poddrzewo prawego dziecka zmieniamy w prawe
     node->right_child = node_r_kid->left_child;
@@ -184,6 +186,9 @@ void BST::rotate_left(TreeNode* node) {
 }
 
 void BST::rotate_right(TreeNode* node) {
+    if (node->left_child == nullptr) {
+        return;
+    }
     TreeNode* node_l_kid = node->left_child;
     // lewe poddrzewo prawego dziecka zmieniamy w prawe
     node->left_child = node_l_kid->right_child;
@@ -224,11 +229,10 @@ void BST::balance_tree_DSW() {
     int n_of_leafs = n + 1 - int(log2(n + 1));
     TreeNode* curr_node;
     bool first_part = true;
-
+    int cycles;
     // rotacje w zaleznosci od fazy 1 lub 2
     while (n > 1 || first_part) {
         curr_node = root;
-        int cycles;
         if (first_part) {
             cycles = n_of_leafs;
             n -= n_of_leafs;
@@ -238,17 +242,19 @@ void BST::balance_tree_DSW() {
             cycles = n;
         }
         for (int i = 0; i < cycles && curr_node != nullptr; i++) {
-            if (curr_node->parent != nullptr) {
-                rotate_left(curr_node);
+            rotate_left(curr_node);
+            if (curr_node->parent != nullptr)
                 curr_node = curr_node->parent->right_child;
-            }
         }
     }
 }
 
 // inspiracja z SO
 void BST::print_BST(TreeNode* node, bool isLeft, const std::string& prefix) {
-    if (node != nullptr) {
+    if (root == nullptr) {
+        std::cout << "Tree is empty!" << std::endl;
+    }
+    else if (node != nullptr) {
         std::cout << prefix;
         if (node != root) {
             std::cout << (isLeft && node->parent != nullptr ? "L" : "R");

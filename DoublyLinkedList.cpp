@@ -64,7 +64,7 @@ int DoublyLinkedList::remove_front() {
         return 0;
     }
     else {
-        std::cout << "List is empty!";
+        std::cout << "List is empty!" << std::endl;
         return -1;
     }
 }
@@ -78,7 +78,7 @@ int DoublyLinkedList::remove_back() {
         return 0;
     }
     else {
-        std::cout << "List is empty!";
+        std::cout << "List is empty!" << std::endl;
         return -1;
     }
 }
@@ -121,7 +121,8 @@ Node* DoublyLinkedList::find(int position) {
 
 void DoublyLinkedList::print() {
     if (size == 0) {
-        std::cout << "List is empty!";
+        std::cout << "List is empty!" << std::endl;
+        return;
     }
     //std::cout << "head " << this->head->value << " tail " << this->tail->value << std::endl;
     Node* curr_node = head;

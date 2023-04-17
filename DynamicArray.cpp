@@ -6,6 +6,12 @@ DynamicArray::DynamicArray() {
     size = 0;
 }
 
+DynamicArray::DynamicArray(int arr_size) {
+    capacity = arr_size;
+    array = new int[capacity];
+    size = 0;
+}
+
 DynamicArray::~DynamicArray() {
     delete[] array;
 }
@@ -116,6 +122,10 @@ int DynamicArray::get_size() {
 }
 
 void DynamicArray::print() {
+    if (size == 0) {
+        std::cout << "Array is empty!" << std::endl;
+        return;
+    }
     for (int i = 0; i < capacity; i++) {
         std::cout << array[i] << " ";
     }

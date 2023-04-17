@@ -23,6 +23,7 @@ public:
     int get_parent(int index);
     int get_left_child(int index);
     int get_right_child(int index);
+    int find(int value);
     void print();
 };
 
